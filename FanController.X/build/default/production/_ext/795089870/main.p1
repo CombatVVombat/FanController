@@ -1240,171 +1240,168 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _tempF `Cuc ~T0 @X0 1 r1 ]
 [f ]
 "117
-[v _fanSpeed `ui ~T0 @X0 1 a ]
-[; ;main.c: 117: uint16_t fanSpeed;
-[; ;main.c: 118: if(tempF < 165)
+[v _fanSpeed `ul ~T0 @X0 1 a ]
 "118
-[e $ ! < -> _tempF `i -> 165 `i 100  ]
-[; ;main.c: 119: fanSpeed = 0;
+[v _temp `ul ~T0 @X0 1 a ]
+[; ;main.c: 117: uint32_t fanSpeed;
+[; ;main.c: 118: uint32_t temp = (uint16_t)tempF;
+[e = _temp -> -> _tempF `ui `ul ]
+[; ;main.c: 119: if(tempF < 165)
 "119
-[e = _fanSpeed -> -> 0 `i `ui ]
-[e $U 101  ]
+[e $ ! < -> _tempF `i -> 165 `i 100  ]
+[; ;main.c: 120: fanSpeed = 0;
 "120
-[e :U 100 ]
-[; ;main.c: 120: else if((tempF >= 165) && (tempF <= 201))
-[e $ ! && >= -> _tempF `i -> 165 `i <= -> _tempF `i -> 201 `i 102  ]
-[; ;main.c: 121: fanSpeed = (((uint16_t)tempF)*12) - 1394;
+[e = _fanSpeed -> -> -> 0 `i `l `ul ]
+[e $U 101  ]
 "121
-[e = _fanSpeed - * -> _tempF `ui -> -> 12 `i `ui -> -> 1394 `i `ui ]
-[e $U 103  ]
+[e :U 100 ]
+[; ;main.c: 121: else if(tempF >= 165)
+[e $ ! >= -> _tempF `i -> 165 `i 102  ]
+[; ;main.c: 122: fanSpeed = ((temp * 3836) / 100) - 6074;
 "122
+[e = _fanSpeed - / * _temp -> -> -> 3836 `i `l `ul -> -> -> 100 `i `l `ul -> -> -> 6074 `i `l `ul ]
 [e :U 102 ]
-[; ;main.c: 122: else
-[; ;main.c: 123: fanSpeed = 1023;
-"123
-[e = _fanSpeed -> -> 1023 `i `ui ]
-[e :U 103 ]
+"124
 [e :U 101 ]
-[; ;main.c: 125: if(fanSpeed > 1023)
+[; ;main.c: 124: if(fanSpeed > 1023)
+[e $ ! > _fanSpeed -> -> -> 1023 `i `l `ul 103  ]
+[; ;main.c: 125: fanSpeed = 1023;
 "125
-[e $ ! > _fanSpeed -> -> 1023 `i `ui 104  ]
-[; ;main.c: 126: fanSpeed = 1023;
-"126
-[e = _fanSpeed -> -> 1023 `i `ui ]
-[e :U 104 ]
-[; ;main.c: 128: return fanSpeed;
-"128
-[e ) _fanSpeed ]
+[e = _fanSpeed -> -> -> 1023 `i `l `ul ]
+[e :U 103 ]
+[; ;main.c: 127: return (uint16_t)fanSpeed;
+"127
+[e ) -> _fanSpeed `ui ]
 [e $UE 99  ]
-[; ;main.c: 129: }
-"129
+[; ;main.c: 128: }
+"128
 [e :UE 99 ]
 }
-"131
+"130
 [v _delayLooper `ui ~T0 @X0 1 e ]
 [i _delayLooper
 -> -> 0 `i `ui
 ]
-[; ;main.c: 131: unsigned int delayLooper = 0;
-"133
+[; ;main.c: 130: unsigned int delayLooper = 0;
+"132
 [v _rampToSpeed `(v ~T0 @X0 1 ef1`Cui ]
 {
-[; ;main.c: 132: void rampToSpeed(const unsigned int targetSpeed)
-[; ;main.c: 133: {
+[; ;main.c: 131: void rampToSpeed(const unsigned int targetSpeed)
+[; ;main.c: 132: {
 [e :U _rampToSpeed ]
 [v _targetSpeed `Cui ~T0 @X0 1 r1 ]
 [f ]
-"134
+"133
 [v _currentSpeed `ui ~T0 @X0 1 a ]
-[; ;main.c: 134: uint16_t currentSpeed = (CCPR1L<<2) + CCP1CONbits.DC1B;
+[; ;main.c: 133: uint16_t currentSpeed = (CCPR1L<<2) + CCP1CONbits.DC1B;
 [e = _currentSpeed -> + << -> _CCPR1L `i -> 2 `i -> . . _CCP1CONbits 0 1 `i `ui ]
-"135
+"134
 [v _command `ui ~T0 @X0 1 a ]
-[; ;main.c: 135: uint16_t command = currentSpeed;
+[; ;main.c: 134: uint16_t command = currentSpeed;
 [e = _command _currentSpeed ]
-[; ;main.c: 137: ++delayLooper;
-"137
+[; ;main.c: 136: ++delayLooper;
+"136
 [e =+ _delayLooper -> -> 1 `i `ui ]
-[; ;main.c: 138: if(delayLooper > 20)
+[; ;main.c: 137: if(delayLooper > 5)
+"137
+[e $ ! > _delayLooper -> -> 5 `i `ui 105  ]
+[; ;main.c: 138: {
 "138
-[e $ ! > _delayLooper -> -> 20 `i `ui 106  ]
-[; ;main.c: 139: {
-"139
 {
-[; ;main.c: 140: delayLooper = 0;
-"140
+[; ;main.c: 139: delayLooper = 0;
+"139
 [e = _delayLooper -> -> 0 `i `ui ]
-[; ;main.c: 141: if(targetSpeed > currentSpeed)
+[; ;main.c: 140: if(targetSpeed > currentSpeed)
+"140
+[e $ ! > _targetSpeed _currentSpeed 106  ]
+[; ;main.c: 141: ++command;
 "141
-[e $ ! > _targetSpeed _currentSpeed 107  ]
-[; ;main.c: 142: ++command;
-"142
 [e =+ _command -> -> 1 `i `ui ]
-[e :U 107 ]
-[; ;main.c: 143: if(targetSpeed < currentSpeed)
-"143
-[e $ ! < _targetSpeed _currentSpeed 108  ]
-[; ;main.c: 144: --command;
-"144
-[e =- _command -> -> 1 `i `ui ]
-[e :U 108 ]
-"145
-}
 [e :U 106 ]
-[; ;main.c: 145: }
-[; ;main.c: 146: CCP1CONbits.DC1B = command;
-"146
-[e = . . _CCP1CONbits 0 1 -> _command `uc ]
-[; ;main.c: 147: CCPR1L = (command>>2);
-"147
-[e = _CCPR1L -> >> _command -> 2 `i `uc ]
-[; ;main.c: 148: }
-"148
-[e :UE 105 ]
+[; ;main.c: 142: if(targetSpeed < currentSpeed)
+"142
+[e $ ! < _targetSpeed _currentSpeed 107  ]
+[; ;main.c: 143: --command;
+"143
+[e =- _command -> -> 1 `i `ui ]
+[e :U 107 ]
+"144
 }
-"151
+[e :U 105 ]
+[; ;main.c: 144: }
+[; ;main.c: 145: CCP1CONbits.DC1B = command;
+"145
+[e = . . _CCP1CONbits 0 1 -> _command `uc ]
+[; ;main.c: 146: CCPR1L = (command>>2);
+"146
+[e = _CCPR1L -> >> _command -> 2 `i `uc ]
+[; ;main.c: 147: }
+"147
+[e :UE 104 ]
+}
+"150
 [v _main `(i ~T0 @X0 1 ef2`i`**uc ]
 {
-[; ;main.c: 150: int main(int argc, char** argv)
-[; ;main.c: 151: {
+[; ;main.c: 149: int main(int argc, char** argv)
+[; ;main.c: 150: {
 [e :U _main ]
 [v _argc `i ~T0 @X0 1 r1 ]
 [v _argv `**uc ~T0 @X0 1 r2 ]
 [f ]
-[; ;main.c: 152: SetupOscillator();
-"152
+[; ;main.c: 151: SetupOscillator();
+"151
 [e ( _SetupOscillator ..  ]
-[; ;main.c: 153: SetupPinIO();
-"153
+[; ;main.c: 152: SetupPinIO();
+"152
 [e ( _SetupPinIO ..  ]
-[; ;main.c: 154: SetupPWM();
-"154
+[; ;main.c: 153: SetupPWM();
+"153
 [e ( _SetupPWM ..  ]
-[; ;main.c: 155: SetupADC();
-"155
+[; ;main.c: 154: SetupADC();
+"154
 [e ( _SetupADC ..  ]
-[; ;main.c: 157: GPIObits.GP4 = 1;
-"157
+[; ;main.c: 156: GPIObits.GP4 = 1;
+"156
 [e = . . _GPIObits 0 4 -> -> 1 `i `uc ]
-[; ;main.c: 158: GPIObits.GP5 = 1;
-"158
+[; ;main.c: 157: GPIObits.GP5 = 1;
+"157
 [e = . . _GPIObits 0 5 -> -> 1 `i `uc ]
-[; ;main.c: 159: GPIObits.GP1 = 1;
-"159
+[; ;main.c: 158: GPIObits.GP1 = 1;
+"158
 [e = . . _GPIObits 0 1 -> -> 1 `i `uc ]
-[; ;main.c: 161: while(1)
-"161
-[e :U 111 ]
-[; ;main.c: 162: {
-"162
-{
-[; ;main.c: 163: asm("clrwdt");
-"163
-[; <" clrwdt ;# ">
-[; ;main.c: 164: adcValue = readADC();
-"164
-[e = _adcValue ( _readADC ..  ]
-[; ;main.c: 165: tempDegF = mapToDegF(adcValue);
-"165
-[e = _tempDegF ( _mapToDegF (1 _adcValue ]
-[; ;main.c: 166: fanSpeed = getFanSpeed(tempDegF);
-"166
-[e = _fanSpeed ( _getFanSpeed (1 _tempDegF ]
-[; ;main.c: 167: rampToSpeed(fanSpeed);
-"167
-[e ( _rampToSpeed (1 _fanSpeed ]
-"168
-}
+[; ;main.c: 160: while(1)
+"160
 [e :U 110 ]
+[; ;main.c: 161: {
 "161
-[e $U 111  ]
-[e :U 112 ]
-[; ;main.c: 168: }
-[; ;main.c: 170: return (0);
-"170
+{
+[; ;main.c: 162: asm("clrwdt");
+"162
+[; <" clrwdt ;# ">
+[; ;main.c: 163: adcValue = readADC();
+"163
+[e = _adcValue ( _readADC ..  ]
+[; ;main.c: 164: tempDegF = mapToDegF(adcValue);
+"164
+[e = _tempDegF ( _mapToDegF (1 _adcValue ]
+[; ;main.c: 165: fanSpeed = getFanSpeed(tempDegF);
+"165
+[e = _fanSpeed ( _getFanSpeed (1 _tempDegF ]
+[; ;main.c: 166: rampToSpeed(fanSpeed);
+"166
+[e ( _rampToSpeed (1 _fanSpeed ]
+"167
+}
+[e :U 109 ]
+"160
+[e $U 110  ]
+[e :U 111 ]
+[; ;main.c: 167: }
+[; ;main.c: 169: return (0);
+"169
 [e ) -> 0 `i ]
-[e $UE 109  ]
-[; ;main.c: 171: }
-"171
-[e :UE 109 ]
+[e $UE 108  ]
+[; ;main.c: 170: }
+"170
+[e :UE 108 ]
 }

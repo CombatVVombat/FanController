@@ -114,18 +114,17 @@ uint8_t mapToDegF(const uint16_t adc)
 uint16_t getFanSpeed(const uint8_t tempF)
 {
     // fan speed 0-1023
-    uint16_t fanSpeed;
+    uint32_t fanSpeed;
+    uint32_t temp = (uint16_t)tempF;
     if(tempF < 165)
         fanSpeed = 0;
-    else if((tempF >= 165) && (tempF <= 201))
-        fanSpeed = (((uint16_t)tempF)*12) - 1394;
-    else
-        fanSpeed = 1023;
+    else if(tempF >= 165)
+        fanSpeed = ((temp * 3836) / 100) - 6074;
 
     if(fanSpeed > 1023)
         fanSpeed = 1023;
 
-    return fanSpeed;
+    return (uint16_t)fanSpeed;
 }
 
 unsigned int delayLooper = 0;
@@ -135,7 +134,7 @@ void rampToSpeed(const unsigned int targetSpeed)
     uint16_t command = currentSpeed;
 
     ++delayLooper;
-    if(delayLooper > 20)
+    if(delayLooper > 5)
     {
         delayLooper = 0;
         if(targetSpeed > currentSpeed)

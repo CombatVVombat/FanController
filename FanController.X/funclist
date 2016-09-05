@@ -1,12 +1,14 @@
-_getFanSpeed: CODE, 1807 0 58
-_SetupPinIO: CODE, 1631 0 11
-_main: CODE, 1762 0 45
-_SetupOscillator: CODE, 1654 0 16
-_mapToDegF: CODE, 1865 0 81
-_rampToSpeed: CODE, 1946 0 93
+_getFanSpeed: CODE, 1907 0 132
+_SetupPinIO: CODE, 1399 0 11
+_main: CODE, 1530 0 45
+_SetupOscillator: CODE, 1422 0 16
+_mapToDegF: CODE, 1638 0 81
+___lmul: CODE, 1575 0 63
+_rampToSpeed: CODE, 1719 0 93
 __initialization: CODE, 2039 0 7
-_SetupADC: CODE, 1642 0 12
-_SetupPWM: CODE, 1670 0 20
-___wmul: CODE, 1690 0 35
-_readADC: CODE, 1725 0 37
-Total: 415
+___lldiv: CODE, 1812 0 95
+_SetupADC: CODE, 1410 0 12
+_SetupPWM: CODE, 1438 0 20
+___wmul: CODE, 1458 0 35
+_readADC: CODE, 1493 0 37
+Total: 647

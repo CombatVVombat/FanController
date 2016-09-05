@@ -16,9 +16,9 @@
 [v _mapToDegF mapToDegF `(uc  1 e 1 0 ]
 "115
 [v _getFanSpeed getFanSpeed `(ui  1 e 2 0 ]
-"133
+"132
 [v _rampToSpeed rampToSpeed `(v  1 e 0 0 ]
-"151
+"150
 [v _main main `(i  1 e 2 0 ]
 "5 D:\Program Files\Microchip\xc8\v1.21\sources\pic\abdiv.c
 [v ___abdiv __abdiv `(c  1 e 1 0 ]
@@ -126,7 +126,7 @@
 [v _tempDegF tempDegF `uc  1 e 1 0 ]
 "33
 [v _fanSpeed fanSpeed `ui  1 e 2 0 ]
-"131
+"130
 [v _delayLooper delayLooper `ui  1 e 2 0 ]
 [s S93 . 1 `uc 1 TRISIO0 1 0 :1:0 
 `uc 1 TRISIO1 1 0 :1:1 
@@ -256,35 +256,59 @@
 [v _WR WR `VEb  1 e 0 @1249 ]
 "2042
 [v _WREN WREN `VEb  1 e 0 @1250 ]
-"151 D:/Programming/LocalGit/FanController/FanController.X/main.c
+"150 D:/Programming/LocalGit/FanController/FanController.X/main.c
 [v _main main `(i  1 e 2 0 ]
 {
-[v main@argc argc `i  1 p 2 0 ]
-[v main@argv argv `*.1*.1uc  1 p 2 2 ]
-"171
+[v main@argc argc `i  1 p 2 28 ]
+[v main@argv argv `*.1*.1uc  1 p 2 30 ]
+"170
 } 0
-"133
+"132
 [v _rampToSpeed rampToSpeed `(v  1 e 0 0 ]
 {
-"134
-[v rampToSpeed@currentSpeed currentSpeed `ui  1 a 2 8 ]
-"135
-[v rampToSpeed@command command `ui  1 a 2 6 ]
 "133
+[v rampToSpeed@currentSpeed currentSpeed `ui  1 a 2 8 ]
+"134
+[v rampToSpeed@command command `ui  1 a 2 6 ]
+"132
 [v rampToSpeed@targetSpeed targetSpeed `DCCui  1 p 2 0 ]
-"148
+"147
 } 0
 "115
 [v _getFanSpeed getFanSpeed `(ui  1 e 2 0 ]
 {
-[v getFanSpeed@tempF tempF `DCCuc  1 a 1 12 ]
+[v getFanSpeed@tempF tempF `DCCuc  1 a 1 27 ]
 "117
-[v getFanSpeed@fanSpeed fanSpeed `ui  1 a 2 10 ]
+[v getFanSpeed@fanSpeed fanSpeed `ul  1 a 4 23 ]
+"118
+[v getFanSpeed@temp temp `ul  1 a 4 19 ]
 "115
-[v getFanSpeed@tempF tempF `DCCuc  1 a 1 12 ]
-"129
+[v getFanSpeed@tempF tempF `DCCuc  1 a 1 27 ]
+"128
 } 0
-"94
+"3 D:\Program Files\Microchip\xc8\v1.21\sources\pic\lmul.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+{
+"4
+[v ___lmul@product product `ul  1 a 4 9 ]
+"3
+[v ___lmul@multiplier multiplier `ul  1 p 4 0 ]
+[v ___lmul@multiplicand multiplicand `ul  1 p 4 4 ]
+"13
+} 0
+"5 D:\Program Files\Microchip\xc8\v1.21\sources\pic\lldiv.c
+[v ___lldiv __lldiv `(ul  1 e 4 0 ]
+{
+"6
+[v ___lldiv@quotient quotient `ul  1 a 4 8 ]
+"7
+[v ___lldiv@counter counter `uc  1 a 1 12 ]
+"5
+[v ___lldiv@divisor divisor `ul  1 p 4 0 ]
+[v ___lldiv@dividend dividend `ul  1 p 4 4 ]
+"26
+} 0
+"94 D:/Programming/LocalGit/FanController/FanController.X/main.c
 [v _mapToDegF mapToDegF `(uc  1 e 1 0 ]
 {
 "105
